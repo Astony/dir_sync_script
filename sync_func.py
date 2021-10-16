@@ -5,8 +5,6 @@ from loguru import logger
 
 from files_and_dirs_funcs import copy_file, create_dir, delete_dir, delete_file
 
-logger.add("log.log", format="{time} {level} {message}")
-
 
 def get_hash(file_path):
     with open(file_path, "rb") as f:
@@ -26,14 +24,15 @@ def sync_objects(
     for obj in replicas_obj:
         if obj not in source_obj:
             delete_func(source_root, rep_root, obj)
-        elif obj in source_obj and obj_type == "file":
-            if not compare_hash(source_root + "/" + obj, rep_root + "/" + obj):
-                logger.info(
-                    f"Mismatch between replic file {rep_root + '/' + obj} and source file "
-                    f"{source_root + '/' + obj} was detected"
-                )
-                delete_func(source_root, rep_root, obj)
-                create_func(source_root, rep_root, obj)
+        elif obj_type == "file" and not compare_hash(
+            source_root + "/" + obj, rep_root + "/" + obj
+        ):
+            logger.info(
+                f"Mismatch between replic file {rep_root + '/' + obj} and source file "
+                f"{source_root + '/' + obj} was detected"
+            )
+            delete_func(source_root, rep_root, obj)
+            create_func(source_root, rep_root, obj)
     for obj in source_obj:
         if obj not in replicas_obj:
             create_func(source_root, rep_root, obj)
