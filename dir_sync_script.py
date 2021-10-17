@@ -33,8 +33,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     logger.add(args.log_path, format="{time} {level} {message}")
-
+    logger.info("Start synchronization")
     try:
         dir_sync_script(args.source_dir, args.replic_dir, args.timer)
     except KeyboardInterrupt:
-        logger.info("Stop monitoring")
+        logger.info("Stop synchronization")
