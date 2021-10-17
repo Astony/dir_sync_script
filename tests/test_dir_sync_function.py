@@ -46,13 +46,22 @@ def test_sync_files_in_current_dir(create_dirs_and_files):
     assert not os.path.exists("tests/dir3/file2.txt")
 
 
-def test_main_sync_func_common_case(create_nested_dirs_and_files):
+def test_main_sync_func_common_first_case(create_nested_dirs_and_files_first_case):
     """Common case that main sync function synchronize all files between source and replica"""
     assert not os.path.exists("tests/replica/dir1/file1.txt")
     sync_func("tests/source", "tests/replica")
     assert os.path.exists("tests/replica/dir1/file1.txt")
     assert os.path.exists("tests/replica/dir2")
-    assert not os.path.exists("tests/replica/dir3")
+    assert os.path.exists("tests/replica/dir3")
+
+
+def test_main_sync_func_common_second_case(create_nested_dirs_and_files_second_case):
+    """Common case that main sync function synchronize all files between source and replica"""
+    assert os.path.exists("tests/replica/dir4/file2.txt")
+    assert not os.path.exists("tests/replica/dir1/dir2/file1.txt")
+    sync_func("tests/source", "tests/replica")
+    assert os.path.exists("tests/replica/dir1/dir2/file1.txt")
+    assert not os.path.exists("tests/replica/dir4")
 
 
 def test_updating_different_files_with_equal_names(create_two_different_files):

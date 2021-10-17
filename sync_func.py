@@ -81,7 +81,7 @@ def sync_objects(
             create_func(source_root, rep_root, obj)
 
 
-def get_metadata(path: str) -> Generator[Tuple, None, None]:
+def get_metadata(path: str) -> Tuple:
     """
     Get all metadata of root including root's directories and files
 
@@ -90,7 +90,7 @@ def get_metadata(path: str) -> Generator[Tuple, None, None]:
     :return:
     """
     for root, dirs, files in os.walk(path):
-        yield root, dirs, files
+        return root, dirs, files
 
 
 def sync_func(source_path: str, replic_path: str) -> None:
@@ -103,35 +103,28 @@ def sync_func(source_path: str, replic_path: str) -> None:
     :type replic_path: str
     :return: None
     """
-    source_metainfo_gen = get_metadata(source_path)
-    rep_metainfo_gen = get_metadata(replic_path)
-
     while True:
-        try:
-            source_root, source_dirs, source_files = next(source_metainfo_gen)
-            rep_root, rep_dirs, rep_files = next(rep_metainfo_gen)
-            sync_objects(
-                source_root,
-                rep_root,
-                source_dirs,
-                rep_dirs,
-                create_dir,
-                delete_dir,
-                obj_type="dir",
-            )
-            sync_objects(
-                source_root,
-                rep_root,
-                source_files,
-                rep_files,
-                copy_file,
-                delete_file,
-                obj_type="file",
-            )
-            for dir in source_dirs:
-                sync_func(source_root + "/" + dir, rep_root + "/" + dir)
-        except StopIteration:
-            break
 
-
-sync_func("/home/anton/source", "/home/anton/replica")
+        source_root, source_dirs, source_files = get_metadata(source_path)
+        rep_root, rep_dirs, rep_files = get_metadata(replic_path)
+        sync_objects(
+            source_root,
+            rep_root,
+            source_dirs,
+            rep_dirs,
+            create_dir,
+            delete_dir,
+            obj_type="dir",
+        )
+        sync_objects(
+            source_root,
+            rep_root,
+            source_files,
+            rep_files,
+            copy_file,
+            delete_file,
+            obj_type="file",
+        )
+        for dir in source_dirs:
+            sync_func(source_root + "/" + dir, rep_root + "/" + dir)
+        break

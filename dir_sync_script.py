@@ -28,7 +28,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("source_dir", type=str, help="path to source directory")
     parser.add_argument("replic_dir", type=str, help="path to the replic directory")
-    parser.add_argument("timer", type=int, help="frequency of monitoring")
+    parser.add_argument("timer", type=int, help="time interval between synchronization")
     parser.add_argument("log_path", type=str, help="path to log_file")
     args = parser.parse_args()
 

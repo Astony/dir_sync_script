@@ -34,13 +34,27 @@ def create_dirs_and_files():
 
 
 @pytest.fixture
-def create_nested_dirs_and_files():
+def create_nested_dirs_and_files_first_case():
     """Create common case for synch function"""
     os.makedirs("tests/source/dir1")
     os.mkdir("tests/source/dir2")
+    os.mkdir("tests/source/dir3")
     create_file("tests/source/dir1/file1.txt", "abacaba")
     os.makedirs("tests/replica/dir1")
-    os.mkdir("tests/replica/dir3")
+    os.mkdir("tests/replica/dir4")
+    yield
+    shutil.rmtree("tests/source")
+    shutil.rmtree("tests/replica")
+
+
+@pytest.fixture
+def create_nested_dirs_and_files_second_case():
+    """Create common case for synch function"""
+    os.makedirs("tests/source/dir1/dir2")
+    create_file("tests/source/dir1/dir2/file1.txt", "hello")
+    os.makedirs("tests/replica/dir1")
+    os.mkdir("tests/replica/dir4")
+    create_file("tests/replica/dir4/file2.txt", "hello")
     yield
     shutil.rmtree("tests/source")
     shutil.rmtree("tests/replica")
