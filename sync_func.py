@@ -73,6 +73,3 @@ def sync_func(source_path, replic_path):
                 sync_func(source_root + "/" + dir, rep_root + "/" + dir)
         except StopIteration:
             break
-
-
-# sync_func("/home/anton/hive_scripts", "/home/anton/hadoop")
