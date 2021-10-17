@@ -6,7 +6,18 @@ from loguru import logger
 from sync_func import sync_func
 
 
-def dir_sync_script(source_path, rep_path, timer):
+def dir_sync_script(source_path: str, rep_path: str, timer: int) -> None:
+    """
+    Directories synchronization with timer of synchronize
+
+    :param source_path: Path to the directory in which the synchronization will take place
+    :type source_path: str
+    :param rep_path: Path to the directory - source copy
+    :type rep_path: str
+    :param timer: Time interval between synchronization
+    :type timer: int
+    :return: None
+    """
     while True:
         sync_func(source_path, rep_path)
         sleep(timer)
