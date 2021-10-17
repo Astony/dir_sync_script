@@ -45,6 +45,6 @@ ________________________________________________________________________________
 
 To run this utility, enter in the console:
 
-``<path-to-script> python3 dir_sync_script.py <path-to-source-dir> <path-to-replica-dir> <time-of-synchronization (in seconds)> <path-to-log-file>``
+``python3 <path-to-script>/dir_sync_script.py <path-to-source-dir> <path-to-replica-dir> <time-of-synchronization (in seconds)> <path-to-log-file>``
 
 To stop this utility, press the ``Ctrl+C`` key combination in the console:
