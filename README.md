@@ -1,6 +1,6 @@
 # Introduction #
 
-__dir_sync_script__ is a console utility that hat performs one-way synchronization of the contents of the two folders: source and replica.
+__dir_sync_script__ is a console utility that performs one-way synchronization of the contents of the two folders: source and replica.
 _______________________________________________________________________________________________________________________________________________________________________
 ## Functionality ##
 
