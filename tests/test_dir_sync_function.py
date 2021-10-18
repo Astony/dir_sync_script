@@ -1,6 +1,7 @@
 import os
 
 import pytest
+
 from files_and_dirs_funcs import copy_file, create_dir, delete_dir, delete_file
 from sync_func import compare_hash, sync_func, sync_objects
 
