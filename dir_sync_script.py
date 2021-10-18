@@ -38,3 +38,5 @@ if __name__ == "__main__":
         dir_sync_script(args.source_dir, args.replic_dir, args.timer)
     except KeyboardInterrupt:
         logger.info("Stop synchronization")
+    except TypeError:
+        logger.error("Directory/directories doesn't exists")

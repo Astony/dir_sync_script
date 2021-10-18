@@ -1,6 +1,6 @@
 import hashlib
 import os
-from typing import Callable, Generator, List, Tuple
+from typing import Callable, List, Tuple
 
 from loguru import logger
 
@@ -87,7 +87,8 @@ def get_metadata(path: str) -> Tuple:
 
     :param path: Path to directory
     :type path: str
-    :return:
+    :return: Root, dirs and files in the root
+    :rtype: Tuple
     """
     for root, dirs, files in os.walk(path):
         return root, dirs, files
