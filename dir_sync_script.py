@@ -40,3 +40,5 @@ if __name__ == "__main__":
         logger.info("Stop synchronization")
     except TypeError:
         logger.error("Directory/directories doesn't exists")
+    except Exception as err:
+        logger.error(f"Error\n{err}\nwas raised")
