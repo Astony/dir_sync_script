@@ -1,5 +1,6 @@
 import os
 
+import pytest
 from files_and_dirs_funcs import copy_file, create_dir, delete_dir, delete_file
 from sync_func import compare_hash, sync_func, sync_objects
 
@@ -81,6 +82,13 @@ def test_empty_source_dir(create_empty_source_dir):
 
 
 def test_empty_replica_dir(create_empty_replica_dir):
+    """Test main sync function in case when replica dir is empty"""
     assert not os.path.exists("tests/replica/dir1/dir2")
     sync_func("tests/source", "tests/replica")
     assert os.path.exists("tests/replica/dir1/dir2")
+
+
+def test_not_existing_path_case(create_two_different_files):
+    """Test with non-existing path to directory"""
+    with pytest.raises(IOError, match=f"Directory /tests/abacaba doesn't exists"):
+        sync_func("tests/source", "/tests/abacaba")

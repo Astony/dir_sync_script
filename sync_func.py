@@ -45,7 +45,7 @@ def sync_objects(
     obj_type: str,
 ) -> None:
     """
-    Synchronize folders and files replic directory with source within one directory
+    Synchronize folders or files of replic directory with source within one directory
 
 
     :param source_root: Path to the directory in which the synchronization will take place
@@ -90,6 +90,8 @@ def get_metadata(path: str) -> Tuple:
     :return: Root, dirs and files in the root
     :rtype: Tuple
     """
+    if not os.path.exists(path):
+        raise IOError(f"Directory {path} doesn't exists")
     for root, dirs, files in os.walk(path):
         return root, dirs, files
 
@@ -105,27 +107,27 @@ def sync_func(source_path: str, replic_path: str) -> None:
     :return: None
     """
     while True:
-
         source_root, source_dirs, source_files = get_metadata(source_path)
         rep_root, rep_dirs, rep_files = get_metadata(replic_path)
-        sync_objects(
-            source_root,
-            rep_root,
-            source_dirs,
-            rep_dirs,
-            create_dir,
-            delete_dir,
-            obj_type="dir",
-        )
-        sync_objects(
-            source_root,
-            rep_root,
-            source_files,
-            rep_files,
-            copy_file,
-            delete_file,
-            obj_type="file",
-        )
-        for dir in source_dirs:
-            sync_func(source_root + "/" + dir, rep_root + "/" + dir)
+        if rep_dirs or rep_files or source_dirs or source_files:
+            sync_objects(
+                source_root,
+                rep_root,
+                source_dirs,
+                rep_dirs,
+                create_dir,
+                delete_dir,
+                obj_type="dir",
+            )
+            sync_objects(
+                source_root,
+                rep_root,
+                source_files,
+                rep_files,
+                copy_file,
+                delete_file,
+                obj_type="file",
+            )
+            for dir in source_dirs:
+                sync_func(source_root + "/" + dir, rep_root + "/" + dir)
         break
