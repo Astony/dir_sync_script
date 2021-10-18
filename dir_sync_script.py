@@ -37,7 +37,7 @@ if __name__ == "__main__":
     try:
         dir_sync_script(args.source_dir, args.replic_dir, args.timer)
     except KeyboardInterrupt:
-        logger.info("Stop synchronization")
+        pass
     except IOError as err:
         logger.error(err)
     except Exception as err:
