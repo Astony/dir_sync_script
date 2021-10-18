@@ -43,6 +43,8 @@ ________________________________________________________________________________
 _______________________________________________________________________________________________
 ## Usage ##
 
+Before using the script make sure you have all necessary libraries. Install libraries with ``pip install -r requirements.txt``
+
 To run this utility, enter in the console:
 
 ``python3 <path-to-script>/dir_sync_script.py <path-to-source-dir> <path-to-replica-dir> <time-of-synchronization (in seconds)> <path-to-log-file>``
